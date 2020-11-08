@@ -22,12 +22,19 @@ export const render = (node: VNode | string): string => {
 
   const attrClause = Object.entries(attrsWithoutRawHtml)
     .filter(([_, v]) => v !== false && v !== null && v !== undefined)
-    .map(([attrName, attrValue]) => ` ${attrName}="${escape(attrValue)}"`)
+    .map(([attrName, attrValue]) => renderAttribute(attrName, attrValue))
     .join('')
 
   const innerHtml = raw?.__html || renderChildren()
 
   return `<${type}${attrClause}>${innerHtml}</${type}>`
+}
+
+const renderAttribute = (name: string, value: unknown): string => {
+  if (value === true || value === '') {
+    return ' ' + name
+  }
+  return ` ${name}="${escape(value)}"`
 }
 
 const escape = (value: unknown): string => {

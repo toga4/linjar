@@ -31,5 +31,14 @@ describe('render', () => {
       //   expect(render(<div a={0n} />)).toEqual(`<div a="0"></div>`)
       // })
     })
+
+    describe('should collapse collapsible attributes', () => {
+      it('empty string', () => {
+        expect(render(<div a="" b={''} />)).toEqual(`<div a b></div>`)
+      })
+      it('true', () => {
+        expect(render(<div a b={true} />)).toEqual(`<div a b></div>`)
+      })
+    })
   })
 })
