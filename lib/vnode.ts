@@ -8,7 +8,7 @@ export interface Component<P = Record<string, unknown>> {
   (props: P & { children?: ChildNodes }): VNode
 }
 
-export type Attrs = { [name: string]: string } & {
+export type Attrs = { [name: string]: unknown } & {
   dangerouslySetInnerHTML?: { __html: string }
 }
 export type ChildNode = VNode | string

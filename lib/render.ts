@@ -21,6 +21,7 @@ export const render = (node: VNode | string): string => {
   const { dangerouslySetInnerHTML: raw, ...attrsWithoutRawHtml } = attributes
 
   const attrClause = Object.entries(attrsWithoutRawHtml)
+    .filter(([_, v]) => v !== false && v !== null && v !== undefined)
     .map(([attrName, attrValue]) => ` ${attrName}="${escape(attrValue)}"`)
     .join('')
 
