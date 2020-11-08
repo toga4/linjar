@@ -21,13 +21,27 @@ export const render = (node: VNode | string): string => {
   const { dangerouslySetInnerHTML: raw, ...attrsWithoutRawHtml } = attributes
 
   const attrClause = Object.entries(attrsWithoutRawHtml)
-    .filter(([_, v]) => v !== false && v !== null && v !== undefined)
+    .filter(([attrName, attrValue]) => canRenderAttribute(attrName, attrValue))
     .map(([attrName, attrValue]) => renderAttribute(attrName, attrValue))
     .join('')
 
   const innerHtml = raw?.__html || renderChildren()
 
   return `<${type}${attrClause}>${innerHtml}</${type}>`
+}
+
+const canRenderAttribute = (name: string, value: unknown): boolean => {
+  // https://html.spec.whatwg.org/multipage/syntax.html#syntax-attributes
+  return (
+    // falsy values
+    value !== false &&
+    value !== null &&
+    value !== undefined &&
+    // name with banned characters
+    !/[ "'<>=]/.test(name) &&
+    // name with control characters
+    !/[\u0000-\u001f]/.test(name)
+  )
 }
 
 const renderAttribute = (name: string, value: unknown): string => {
