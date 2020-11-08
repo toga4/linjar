@@ -189,6 +189,29 @@ describe('render', () => {
         const expected = `<${element} foo="bar">baz</${element}>`
         expect(rendered).toEqual(expected)
       })
+
+      describe('xml:true', () => {
+        it('should render self-close tags of void elements', () => {
+          const rendered = render(h(element, null), { xml: true })
+          const expected = `<${element} />`
+          expect(rendered).toEqual(expected)
+        })
+
+        it('should render self-close tags of void elements with attributes', () => {
+          const rendered = render(h(element, { a: 'b' }), { xml: true })
+          const expected = `<${element} a="b" />`
+          expect(rendered).toEqual(expected)
+        })
+
+        it('should not render self-close if it has dangerouslySetInnerHTML prop', () => {
+          const rendered = render(
+            h(element, { dangerouslySetInnerHTML: { __html: 'foo' } }),
+            { xml: true }
+          )
+          const expected = `<${element}>foo</${element}>`
+          expect(rendered).toEqual(expected)
+        })
+      })
     })
   })
 
@@ -347,6 +370,29 @@ describe('render', () => {
         </Fragment>
       )
       expect(html).toEqual('<span>foo</span><span>bar</span>')
+    })
+
+    describe('xml:true', () => {
+      it('should render self-close tags', () => {
+        const rendered = render(<div />, { xml: true })
+        const expected = `<div />`
+        expect(rendered).toEqual(expected)
+      })
+
+      it('should render self-close tags with attributes', () => {
+        const rendered = render(<div a="b" />, { xml: true })
+        const expected = `<div a="b" />`
+        expect(rendered).toEqual(expected)
+      })
+
+      it('should not render self-close if it has dangerouslySetInnerHTML prop', () => {
+        const rendered = render(
+          <div dangerouslySetInnerHTML={{ __html: 'foo' }} />,
+          { xml: true }
+        )
+        const expected = `<div>foo</div>`
+        expect(rendered).toEqual(expected)
+      })
     })
   })
 })

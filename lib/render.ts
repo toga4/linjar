@@ -2,10 +2,15 @@ import { ChildNodes, Fragment, VNode } from './vnode'
 
 const VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/
 
-export const render = (node: VNode): string => {
+interface Options {
+  xml?: boolean
+}
+
+export const render = (node: VNode, options?: Options): string => {
   const type = node.type
   const attributes = node.attributes || {}
   const children = node.children
+  const { xml } = { xml: false, ...(options || {}) }
 
   if (type === Fragment) {
     return renderChildren(children)
@@ -23,7 +28,9 @@ export const render = (node: VNode): string => {
 
   const innerHtml = raw?.__html || renderChildren(children)
 
-  if (VOID_ELEMENTS.test(type) && !innerHtml) {
+  if (xml && !innerHtml) {
+    return `<${type}${attrClause} />`
+  } else if (VOID_ELEMENTS.test(type) && !innerHtml) {
     return `<${type}${attrClause}>`
   } else {
     return `<${type}${attrClause}>${innerHtml}</${type}>`
