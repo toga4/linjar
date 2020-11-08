@@ -49,7 +49,7 @@ const canRenderAttribute = (name: string, value: unknown): boolean => {
   // https://html.spec.whatwg.org/multipage/syntax.html#syntax-attributes
   return (
     // falsy values
-    value !== false &&
+    (name.startsWith('aria-') || value !== false) &&
     value !== null &&
     value !== undefined &&
     // name with banned characters
@@ -60,7 +60,7 @@ const canRenderAttribute = (name: string, value: unknown): boolean => {
 }
 
 const renderAttribute = (name: string, value: unknown): string => {
-  if (value === true || value === '') {
+  if ((!name.startsWith('aria-') && value === true) || value === '') {
     return ' ' + name
   }
   return ` ${name}="${escape(value)}"`

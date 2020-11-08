@@ -41,6 +41,19 @@ describe('render', () => {
       })
     })
 
+    it('should render boolean aria-* attributes', () => {
+      const rendered = render(
+        <div
+          aria-hidden
+          aria-checked={false}
+          aria-foo={null}
+          aria-bar={undefined}
+        />
+      )
+      const expected = `<div aria-hidden="true" aria-checked="false"></div>`
+      expect(rendered).toEqual(expected)
+    })
+
     // https://html.spec.whatwg.org/multipage/syntax.html#syntax-attributes
     describe('attribute name sanitization', () => {
       it.each(Array.from({ length: 32 }, (_, i) => i))(
