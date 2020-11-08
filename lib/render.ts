@@ -1,18 +1,12 @@
-import { Fragment, VNode } from './vnode'
+import { ChildNodes, Fragment, VNode } from './vnode'
 
-export const render = (node: VNode | string): string => {
-  if (typeof node === 'string') {
-    return escape(node)
-  }
-
+export const render = (node: VNode): string => {
   const type = node.type
   const attributes = node.attributes || {}
-  const children = node.children.flat()
-
-  const renderChildren = () => children.map((child) => render(child)).join('')
+  const children = node.children
 
   if (type === Fragment) {
-    return renderChildren()
+    return renderChildren(children)
   }
   if (typeof type === 'function') {
     return render(type({ ...attributes, children }))
@@ -25,9 +19,24 @@ export const render = (node: VNode | string): string => {
     .map(([attrName, attrValue]) => renderAttribute(attrName, attrValue))
     .join('')
 
-  const innerHtml = raw?.__html || renderChildren()
+  const innerHtml = raw?.__html || renderChildren(children)
 
   return `<${type}${attrClause}>${innerHtml}</${type}>`
+}
+
+const renderChildren = (children: ChildNodes): string => {
+  return children
+    .flat()
+    .map((node) => {
+      if (typeof node === 'boolean' || node === null || node === undefined) {
+        return ''
+      } else if (typeof node === 'object' && 'type' in node) {
+        return render(node)
+      } else {
+        return escape(node)
+      }
+    })
+    .join('')
 }
 
 const canRenderAttribute = (name: string, value: unknown): boolean => {

@@ -11,7 +11,14 @@ export interface Component<P = Record<string, unknown>> {
 export type Attrs = { [name: string]: unknown } & {
   dangerouslySetInnerHTML?: { __html: string }
 }
-export type ChildNode = VNode | string
+export type ChildNode =
+  | VNode
+  | object
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
 export type ChildNodes = ChildNode[]
 
 export const h = (
@@ -20,4 +27,4 @@ export const h = (
   ...children: ChildNodes
 ): VNode => ({ type, attributes: props || {}, children })
 
-export const Fragment: Component = () => h('', null)
+export const Fragment: Component = () => h('', null) // make dummy VNode

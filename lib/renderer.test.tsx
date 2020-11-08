@@ -104,5 +104,27 @@ describe('render', () => {
       const expected = `<div a="&quot;&lt;&gt;&amp;">&quot;&lt;&gt;&amp;</div>`
       expect(rendered).toEqual(expected)
     })
+
+    describe('non-text children', () => {
+      it('should omit null children', () => {
+        expect(render(<div>a{null}b</div>)).toEqual(`<div>ab</div>`)
+      })
+
+      it('should omit undefined children', () => {
+        expect(render(<div>a{undefined}b</div>)).toEqual(`<div>ab</div>`)
+      })
+
+      it('should omit true children', () => {
+        expect(render(<div>a{true}b</div>)).toEqual(`<div>ab</div>`)
+      })
+
+      it('should omit false children', () => {
+        expect(render(<div>a{false}b</div>)).toEqual(`<div>ab</div>`)
+      })
+
+      it('should render number children', () => {
+        expect(render(<div>a{0}b</div>)).toEqual(`<div>a0b</div>`)
+      })
+    })
   })
 })
