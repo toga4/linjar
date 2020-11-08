@@ -126,5 +126,42 @@ describe('render', () => {
         expect(render(<div>a{0}b</div>)).toEqual(`<div>a0b</div>`)
       })
     })
+
+    describe.each([
+      'area',
+      'base',
+      'br',
+      'col',
+      'embed',
+      'hr',
+      'img',
+      'input',
+      'link',
+      'meta',
+      'param',
+      'source',
+      'track',
+      'wbr',
+    ])('void elements: %s', (element) => {
+      it('should self-close void elements', () => {
+        const rendered = render(h(element, { a: 'b' }))
+        const expected = `<${element} a="b">`
+        expect(rendered).toEqual(expected)
+      })
+
+      it('should render end tags if void elements has children', () => {
+        const rendered = render(h(element, { foo: 'bar' }, 'baz'))
+        const expected = `<${element} foo="bar">baz</${element}>`
+        expect(rendered).toEqual(expected)
+      })
+
+      it('should render end tags if void elements has dangerouslySetInnerHTML prop', () => {
+        const rendered = render(
+          h(element, { foo: 'bar', dangerouslySetInnerHTML: { __html: 'baz' } })
+        )
+        const expected = `<${element} foo="bar">baz</${element}>`
+        expect(rendered).toEqual(expected)
+      })
+    })
   })
 })

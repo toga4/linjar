@@ -1,5 +1,7 @@
 import { ChildNodes, Fragment, VNode } from './vnode'
 
+const VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/
+
 export const render = (node: VNode): string => {
   const type = node.type
   const attributes = node.attributes || {}
@@ -21,7 +23,11 @@ export const render = (node: VNode): string => {
 
   const innerHtml = raw?.__html || renderChildren(children)
 
-  return `<${type}${attrClause}>${innerHtml}</${type}>`
+  if (VOID_ELEMENTS.test(type) && !innerHtml) {
+    return `<${type}${attrClause}>`
+  } else {
+    return `<${type}${attrClause}>${innerHtml}</${type}>`
+  }
 }
 
 const renderChildren = (children: ChildNodes): string => {
