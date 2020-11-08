@@ -164,7 +164,13 @@ describe('render', () => {
       'track',
       'wbr',
     ])('void elements: %s', (element) => {
-      it('should self-close void elements', () => {
+      it('should omit end tags of void elements', () => {
+        const rendered = render(h(element, null))
+        const expected = `<${element}>`
+        expect(rendered).toEqual(expected)
+      })
+
+      it('should omit end tags of void elements with attributes', () => {
         const rendered = render(h(element, { a: 'b' }))
         const expected = `<${element} a="b">`
         expect(rendered).toEqual(expected)
