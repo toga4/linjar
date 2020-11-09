@@ -1,3 +1,3 @@
-# jsx-render-to-string
+# linjar
 
-Render JSX to an HTML/XML string.
+The lightweight templating engine that renders HTML/XML from JSX.

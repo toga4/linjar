@@ -1,5 +1,5 @@
 {
-  "name": "jsx-render-to-string",
+  "name": "linjar",
   "version": "0.0.0",
   "description": "Render JSX to an HTML/XML string",
   "scripts": {
