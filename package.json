@@ -1,7 +1,22 @@
 {
   "name": "linjar",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Render JSX to an HTML/XML string",
+  "homepage": "https://github.com/clomie/linjar",
+  "bugs": {
+    "url": "https://github.com/clomie/linjar/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clomie/linjar.git"
+  },
+  "license": "MIT",
+  "author": "clomie",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest"
   },
