@@ -1,14 +1,6 @@
 import { ChildNodes, Component, Fragment, h } from './vnode'
 import { render } from './render'
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      [elemName: string]: unknown
-    }
-  }
-}
-
 describe('render', () => {
   describe('Basic JSX', () => {
     it('should render JSX', () => {
