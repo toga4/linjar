@@ -5,6 +5,11 @@
   "labels": ["renovate"],
   "packageRules": [
     {
+      "updateTypes": ["pin"],
+      "schedule": null,
+      "automerge": true
+    },
+    {
       "updateTypes": ["patch"],
       "groupName": "patch dependencies",
       "automerge": true
