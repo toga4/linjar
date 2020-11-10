@@ -13,10 +13,10 @@ export const render = (node: VNode, options?: Options): string => {
   const { xml } = { xml: false, ...(options || {}) }
 
   if (type === Fragment) {
-    return renderChildren(children)
+    return renderChildren(children, options)
   }
   if (typeof type === 'function') {
-    return render(type({ ...attributes, children }))
+    return render(type({ ...attributes, children }), options)
   }
 
   const { dangerouslySetInnerHTML: raw, ...attrsWithoutRawHtml } = attributes
@@ -26,7 +26,7 @@ export const render = (node: VNode, options?: Options): string => {
     .map(([attrName, attrValue]) => renderAttribute(attrName, attrValue))
     .join('')
 
-  const innerHtml = raw?.__html || renderChildren(children)
+  const innerHtml = raw?.__html || renderChildren(children, options)
 
   if (xml && !innerHtml) {
     return `<${type}${attrClause} />`
@@ -37,14 +37,14 @@ export const render = (node: VNode, options?: Options): string => {
   }
 }
 
-const renderChildren = (children: ChildNodes): string => {
+const renderChildren = (children: ChildNodes, options?: Options): string => {
   return children
     .flat()
     .map((node) => {
       if (typeof node === 'boolean' || node === null || node === undefined) {
         return ''
       } else if (typeof node === 'object' && 'type' in node) {
-        return render(node)
+        return render(node, options)
       } else {
         return escape(node)
       }

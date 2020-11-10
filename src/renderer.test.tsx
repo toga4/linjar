@@ -1,4 +1,4 @@
-import { ChildNodes, Component, Fragment, h } from './vnode'
+import { ChildNodes, Component, Fragment, h, VNode } from './vnode'
 import { render } from './render'
 
 describe('render', () => {
@@ -183,24 +183,27 @@ describe('render', () => {
       })
 
       describe('xml:true', () => {
+        const renderXml = (node: VNode) => render(node, { xml: true })
+
         it('should render self-close tags of void elements', () => {
-          const rendered = render(h(element, null), { xml: true })
-          const expected = `<${element} />`
+          const rendered = renderXml(h('div', null, [h(element, null)]))
+          const expected = `<div><${element} /></div>`
           expect(rendered).toEqual(expected)
         })
 
         it('should render self-close tags of void elements with attributes', () => {
-          const rendered = render(h(element, { a: 'b' }), { xml: true })
-          const expected = `<${element} a="b" />`
+          const rendered = renderXml(h('div', null, [h(element, { a: 'b' })]))
+          const expected = `<div><${element} a="b" /></div>`
           expect(rendered).toEqual(expected)
         })
 
         it('should not render self-close if it has dangerouslySetInnerHTML prop', () => {
-          const rendered = render(
-            h(element, { dangerouslySetInnerHTML: { __html: 'foo' } }),
-            { xml: true }
+          const rendered = renderXml(
+            h('div', null, [
+              h(element, { dangerouslySetInnerHTML: { __html: 'foo' } }),
+            ])
           )
-          const expected = `<${element}>foo</${element}>`
+          const expected = `<div><${element}>foo</${element}></div>`
           expect(rendered).toEqual(expected)
         })
       })
