@@ -1,5 +1,17 @@
 {
-  "extends": [
-    "config:base"
+  "extends": ["config:base"],
+  "schedule": ["every weekend"],
+  "timezone": "Asia/Tokyo",
+  "packageRules": [
+    {
+      "updateTypes": ["patch"],
+      "groupName": "patch dependencies",
+      "automerge": true
+    },
+    {
+      "updateTypes": ["minor", "patch"],
+      "groupName": "devDependencies (non-major)",
+      "automerge": true
+    }
   ]
 }
