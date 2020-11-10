@@ -1,0 +1,18 @@
+{
+  "extends": ["config:base"],
+  "schedule": ["every weekend"],
+  "timezone": "Asia/Tokyo",
+  "labels": ["renovate"],
+  "packageRules": [
+    {
+      "updateTypes": ["patch"],
+      "groupName": "patch dependencies",
+      "automerge": true
+    },
+    {
+      "updateTypes": ["minor", "patch"],
+      "groupName": "devDependencies (non-major)",
+      "automerge": true
+    }
+  ]
+}
