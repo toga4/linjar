@@ -79,8 +79,9 @@ const escape = (value: unknown): string => {
   }
 
   return value
-    .replace('&', '&amp;')
-    .replace('<', '&lt;')
-    .replace('>', '&gt;')
-    .replace('"', '&quot;')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/'/g, '&apos;')
+    .replace(/"/g, '&quot;')
 }

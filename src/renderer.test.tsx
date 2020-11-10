@@ -113,8 +113,8 @@ describe('render', () => {
     })
 
     it('should escape entities', () => {
-      const rendered = render(<div a={'"<>&'}>{'"<>&'}</div>)
-      const expected = `<div a="&quot;&lt;&gt;&amp;">&quot;&lt;&gt;&amp;</div>`
+      const rendered = render(<div a={`"'<>&"'<>&`}>{`"'<>&"'<>&`}</div>)
+      const expected = `<div a="&quot;&apos;&lt;&gt;&amp;&quot;&apos;&lt;&gt;&amp;">&quot;&apos;&lt;&gt;&amp;&quot;&apos;&lt;&gt;&amp;</div>`
       expect(rendered).toEqual(expected)
     })
 
