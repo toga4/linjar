@@ -20,15 +20,14 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf lib/",
-    "postinstall": "husky install",
-    "prepublishOnly": "npm run clean && npm run build && pinst --disable",
-    "postpublish": "pinst --enable",
+    "prepare": "husky install",
+    "prepublishOnly": "npm run clean && npm run build",
     "test": "jest"
   },
   "devDependencies": {
     "@types/jest": "27.0.1",
     "@types/node": "14.17.12",
-    "husky": "5.2.0",
+    "husky": "7.0.2",
     "jest": "27.1.0",
     "lint-staged": "10.5.4",
     "pinst": "2.1.6",
