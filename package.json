@@ -25,8 +25,8 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@types/jest": "27.0.3",
-    "@types/node": "14.18.2",
+    "@types/jest": "27.4.0",
+    "@types/node": "14.18.3",
     "husky": "7.0.4",
     "jest": "27.4.5",
     "lint-staged": "12.1.4",
