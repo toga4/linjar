@@ -29,7 +29,7 @@
     "@types/node": "14.18.13",
     "husky": "7.0.4",
     "jest": "27.5.1",
-    "lint-staged": "12.3.8",
+    "lint-staged": "12.4.0",
     "pinst": "2.1.6",
     "prettier": "2.6.2",
     "rimraf": "3.0.2",
