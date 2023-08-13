@@ -2,16 +2,16 @@
   "name": "linjar",
   "version": "1.0.2",
   "description": "Render JSX to an HTML/XML string",
-  "homepage": "https://github.com/clomie/linjar",
+  "homepage": "https://github.com/toga4/linjar",
   "bugs": {
-    "url": "https://github.com/clomie/linjar/issues"
+    "url": "https://github.com/toga4/linjar/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/clomie/linjar.git"
+    "url": "https://github.com/toga4/linjar.git"
   },
   "license": "MIT",
-  "author": "clomie",
+  "author": "toga4",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
