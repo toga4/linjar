@@ -1,6 +1,6 @@
 {
   "name": "linjar",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Render JSX to an HTML/XML string",
   "homepage": "https://github.com/toga4/linjar",
   "bugs": {
