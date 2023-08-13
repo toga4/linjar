@@ -13,6 +13,9 @@ jobs:
         with:
           node-version: lts/*
           cache: 'npm'
+      - run: npx can-npm-publish --verbose
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm ci
       - run: npm publish
         env:
