@@ -3,6 +3,7 @@ name: publish new version
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -13,6 +14,7 @@ jobs:
         with:
           node-version: lts/*
           cache: 'npm'
+          registry-url: https://registry.npmjs.org
       - run: npx can-npm-publish --verbose
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
